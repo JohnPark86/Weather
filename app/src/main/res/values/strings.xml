@@ -11,4 +11,6 @@
         <item>Settings</item>
         <item>Refresh</item>
     </string-array>
+    <string name="zipInput">Please enter zip code: </string>
+    <string name="button_text">Submit</string>
 </resources>
