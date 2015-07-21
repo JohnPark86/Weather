@@ -5,5 +5,4 @@ package johnpark.sunshine;
  */
 public interface AsyncResponse {
     void processFinish(String[] output);
-
 }

@@ -12,7 +12,8 @@ import static android.app.ActionBar.NAVIGATION_MODE_LIST;
 public class DetailView extends ActionBarActivity
         implements ActionBar.OnNavigationListener, android.support.v7.app.ActionBar.OnNavigationListener {
 
-    SpinnerAdapter mSpinnerAdapter;
+    private final String TAG = this.getClass().getSimpleName();
+    private SpinnerAdapter mSpinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,7 +3,6 @@ package johnpark.sunshine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,12 @@ import java.util.ArrayList;
  */
 public class MainActivityFragment extends Fragment implements AsyncResponse{
 
+    private final String TAG = this.getClass().getSimpleName();
     private ArrayList <String> list = new ArrayList<>();
-    static ListView lv;
-    ForeCastLoader  f;
-    ArrayAdapter<String> adapter;
-    View view;
+    private ListView lv;
+    private ForeCastLoader  f;
+    private ArrayAdapter<String> adapter;
+    private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,9 @@ public class MainActivityFragment extends Fragment implements AsyncResponse{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        Log.i("ONCREATEVIEW:" , "onCreateView");
         view = inflater.inflate(R.layout.fragment_main, container, false);
 
         lv = (ListView)view.findViewById(R.id.listview_forecast);
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -60,27 +58,18 @@ public class MainActivityFragment extends Fragment implements AsyncResponse{
 
     public void update()
     {
-
         f = new ForeCastLoader();
         f.delegate = this;
         f.execute("87592");
-
     }
 
     public void processFinish(String[] output)
     {
         list.clear();
-        for(String s:output)
+        for(String results:output)
         {
-            list.add(s);
-            Log.i("S:",s);
+            list.add(results);
         }
-        if(adapter==null)
-        {
-            Log.i("ADAPTER: ", "null");
-        }
-        else
-            adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
-
 }

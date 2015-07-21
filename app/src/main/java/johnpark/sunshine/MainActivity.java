@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity
 
     private final String TAG = this.getClass().getSimpleName();
     private boolean mNaviFirstHit = true;
-    MainActivityFragment mfa = new MainActivityFragment();
+    private MainActivityFragment mfa = new MainActivityFragment();
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -29,16 +29,14 @@ public class MainActivity extends ActionBarActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        transaction.add(R.id.fragment, mfa, "MainActivityFragmentTag");
+        transaction.add(R.id.fragment, mfa);
 
         String[] dropdownValues = getResources().getStringArray(R.array.nav_list);
-
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(actionBar.getThemedContext(),
                 android.R.layout.simple_spinner_item, android.R.id.text1,
                 dropdownValues);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         actionBar.setDisplayShowTitleEnabled(false);

@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
  */
 class ForeCastLoader extends AsyncTask<String,Void,String[]>
 {
+    private final String TAG = this.getClass().getSimpleName();
     private HttpURLConnection con;
     private BufferedReader in;
     private String forecastJsonStr = null;
@@ -31,7 +32,6 @@ class ForeCastLoader extends AsyncTask<String,Void,String[]>
     final String FORMAT_PARAM = "mode";
     final String UNITS_PARAM = "units";
     final String DAYS_PARAM = "cnt";
-    final String LOG_TAG = "ForeCastLoader";
     public AsyncResponse delegate=null;
 
     @Override
@@ -40,10 +40,6 @@ class ForeCastLoader extends AsyncTask<String,Void,String[]>
         delegate.processFinish(results);
     }
 
-    public void setDelegate(AsyncResponse d)
-    {
-        delegate=d;
-    }
     @Override
     protected String[] doInBackground(String... params)
     {
@@ -57,7 +53,6 @@ class ForeCastLoader extends AsyncTask<String,Void,String[]>
                     .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays)).build();
 
             URL url = new URL(builtUri.toString());
-Log.i("uri: ",builtUri.toString());
             con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod("GET");
             con.connect();
@@ -134,7 +129,6 @@ Log.i("uri: ",builtUri.toString());
      */
     private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
             throws JSONException {
-        Log.i("ForecastJsonStr: ", forecastJsonStr);
         // These are the names of the JSON objects that need to be extracted.
         final String OWM_LIST = "list";
         final String OWM_WEATHER = "weather";
@@ -148,7 +142,6 @@ Log.i("uri: ",builtUri.toString());
         final String OWM_MAIN = "day";
 
         JSONObject forecastJson = new JSONObject(forecastJsonStr);
-        Log.i("forecastJSON",forecastJson.toString());
 
         JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
 
@@ -195,7 +188,7 @@ Log.i("uri: ",builtUri.toString());
         }
 
         for (String s : resultStrs) {
-            Log.v(LOG_TAG, "Forecast entry: " + s);
+            Log.i(TAG, "Forecast entry: " + s);
         }
         return resultStrs;
 

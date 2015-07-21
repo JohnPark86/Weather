@@ -18,16 +18,17 @@ import java.util.HashMap;
  */
 public class DetailViewFragment extends Fragment {
 
-    TextView weekDay;
-    TextView date;
-    TextView hi;
-    TextView low;
-    TextView humidity;
-    TextView pressure;
-    TextView description;
-    TextView temp;
-    TextView wind;
-    ImageView iv;
+    private final String TAG = this.getClass().getSimpleName();
+    private TextView weekDay;
+    private TextView date;
+    private TextView hi;
+    private TextView low;
+    private TextView humidity;
+    private TextView pressure;
+    private TextView description;
+    private TextView temp;
+    private TextView wind;
+    private ImageView iv;
 
 
     @Override
