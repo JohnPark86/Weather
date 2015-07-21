@@ -21,7 +21,7 @@ public class MainActivityFragment extends Fragment implements AsyncResponse{
 
     private ArrayList <String> list = new ArrayList<>();
     static ListView lv;
-    ForeCastLoader  f = new ForeCastLoader();
+    ForeCastLoader  f;
     ArrayAdapter<String> adapter;
     View view;
 
@@ -31,6 +31,7 @@ public class MainActivityFragment extends Fragment implements AsyncResponse{
         adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_textview, list);
+        f = new ForeCastLoader();
         f.delegate = this;
         f.execute("94043");
     }
@@ -59,8 +60,11 @@ public class MainActivityFragment extends Fragment implements AsyncResponse{
 
     public void update()
     {
+
+        f = new ForeCastLoader();
         f.delegate = this;
-        f.execute("67865");
+        f.execute("87592");
+
     }
 
     public void processFinish(String[] output)

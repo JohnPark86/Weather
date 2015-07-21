@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity
 
     private final String TAG = this.getClass().getSimpleName();
     private boolean mNaviFirstHit = true;
-    MainActivityFragment mfa;
+    MainActivityFragment mfa = new MainActivityFragment();
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        mfa = new MainActivityFragment();
+
         transaction.add(R.id.fragment, mfa, "MainActivityFragmentTag");
 
         String[] dropdownValues = getResources().getStringArray(R.array.nav_list);

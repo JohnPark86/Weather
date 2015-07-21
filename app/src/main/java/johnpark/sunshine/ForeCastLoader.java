@@ -40,6 +40,10 @@ class ForeCastLoader extends AsyncTask<String,Void,String[]>
         delegate.processFinish(results);
     }
 
+    public void setDelegate(AsyncResponse d)
+    {
+        delegate=d;
+    }
     @Override
     protected String[] doInBackground(String... params)
     {
