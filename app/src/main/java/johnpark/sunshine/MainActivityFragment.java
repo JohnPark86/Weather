@@ -3,7 +3,10 @@ package johnpark.sunshine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,6 +31,7 @@ public class MainActivityFragment extends Fragment implements AsyncResponse{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_textview, list);
@@ -36,13 +40,12 @@ public class MainActivityFragment extends Fragment implements AsyncResponse{
         f.execute("94043");
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.fragment_main, container, false);
-
+        setHasOptionsMenu(true);
         lv = (ListView)view.findViewById(R.id.listview_forecast);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,11 +59,19 @@ public class MainActivityFragment extends Fragment implements AsyncResponse{
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Log.i(TAG, "onCreateOptions");
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     public void update()
     {
         f = new ForeCastLoader();
         f.delegate = this;
-        f.execute("87592");
+        String zip = new SettingsActivity().zipcode;
+        f.execute(zip);
     }
 
     public void processFinish(String[] output)

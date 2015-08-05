@@ -1,26 +1,19 @@
 package johnpark.sunshine;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
-import android.widget.ArrayAdapter;
-
-import static android.app.ActionBar.NAVIGATION_MODE_LIST;
-import static android.app.ActionBar.OnNavigationListener;
+import android.util.Log;
+import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity
-                    implements OnNavigationListener, android.support.v7.app.ActionBar.OnNavigationListener {
+public class MainActivity extends ActionBarActivity {
 
     private final String TAG = this.getClass().getSimpleName();
-    private boolean mNaviFirstHit = true;
     private MainActivityFragment mfa = new MainActivityFragment();
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -30,39 +23,29 @@ public class MainActivity extends ActionBarActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fragment, mfa);
-
-        String[] dropdownValues = getResources().getStringArray(R.array.nav_list);
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(actionBar.getThemedContext(),
-                android.R.layout.simple_spinner_item, android.R.id.text1,
-                dropdownValues);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(NAVIGATION_MODE_LIST);
-        actionBar.setListNavigationCallbacks(adapter, this);
+        Log.i(TAG, "onCreate");
     }
 
     @Override
-    public boolean onNavigationItemSelected(int position, long id) {
-        if (mNaviFirstHit) {
-            mNaviFirstHit = false;
-            return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // help action
+                Intent in = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(in);
+                return true;
+            case R.id.action_refresh:
+                // check for updates action
+                mfa = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("MainActivityFragmentTag");
+                mfa.update();
+                return true;
+            default:
+                super.onOptionsItemSelected(item);
+                return true;
         }
 
-
-
-        if(position==1)
-        {
-            Intent in = new Intent(getApplicationContext(),SettingsActivity.class);
-            startActivity(in);
-        }
-        if(position==2)
-        {
-            mfa = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("MainActivityFragmentTag");
-            mfa.update();
-        }
-        return true;
     }
+
 }
+
+

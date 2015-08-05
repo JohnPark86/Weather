@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -33,7 +35,9 @@ public class DetailViewFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
+        setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_detail_view, container, false);
         String Item = getActivity().getIntent().getExtras().getString("tempData");
         String[] vals = Item.split("-");
@@ -60,6 +64,13 @@ public class DetailViewFragment extends Fragment {
         temp.bringToFront();
 
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Log.i(TAG, "onCreateOptions");
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void generateDays(HashMap<String, String> weekdays) {

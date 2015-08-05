@@ -5,7 +5,6 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,7 +17,7 @@ public class SettingsActivity extends PreferenceActivity
     Button b;
     TextView zipInput;
     EditText zipCodeInput;
-    String zipcode = null;
+    static String zipcode;
 
 
     @Override
@@ -33,13 +32,17 @@ public class SettingsActivity extends PreferenceActivity
 
         zipInput = (TextView)findViewById(R.id.zipInput);
         zipCodeInput = (EditText)findViewById(R.id.zipCodeInput);
-        b = (Button)findViewById(R.id.button);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                zipcode = zipCodeInput.getText().toString();
-            }
-        });
+    //    b = (Button)findViewById(R.id.button);
+    //if(b==null)
+    //Log.i(TAG, "b is null");
+    //    b.setOnClickListener(new OnClickListener() {
+
+    //        @Override
+    //        public void onClick(View v) {
+    //            zipcode = zipCodeInput.getText().toString();
+    //        }
+
+    //    });
     }
 
     /**
